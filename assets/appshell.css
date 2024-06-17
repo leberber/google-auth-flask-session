@@ -1,0 +1,146 @@
+
+:root {
+    --logo-image-with:140px;
+    --header-height:70px;
+    --navbar-width:350px;
+    --app-root-margin-left :var(--navbar-width)
+}
+
+.mantine-AppShell-header{
+    height: var(--header-height); 
+}
+.header-inner-container{
+    height: calc(var(--header-height));
+}
+.baylek-logo-image { width: var(--logo-image-with)}
+
+.mantine-AppShell-navbar {
+    margin-top: calc(var(--header-height));
+    width: var(--navbar-width);
+}
+.mantine-AppShell-root{
+    margin-left: var(--app-root-margin-left);
+    margin-top: calc(var(--header-height));
+}
+
+@media only screen and (max-width: 61.99375em) { 
+    :root {
+        --app-root-margin-left:0px;
+        --logo-image-with:80px;
+        --header-height:50px;
+        --navbar-width:100%;
+   
+    }
+    .mantine-AppShell-navbar {
+        margin-left: 0px
+    }
+  }
+ 
+
+/* :root {
+    --logo-image-with:120px;
+    --header-height:60px;
+    --footer-height:0px; 
+    --navbar-width:300px;
+    --navbar-width-margin:300px;
+    --aside-width:300px; 
+    --layout-adide-gap: calc(var(--layout-vertical-gap) * 2); 
+    --layout-vertical-gap : 10px;
+    --layout-horizontal-gap : 6px;
+    --layout-corner-raduis:10px;
+    --header-padding:3px;
+    --layout-padding-gaps:5px;
+    --aside-bg-color:rgb(248, 246, 246);
+    --frame-border-width:0px;
+    --layout-adide-gap: calc(var(--layout-vertical-gap) * 2)
+}
+
+.mantine-AppShell-header{
+    padding: calc(var(--header-padding) / 2);
+    height: var(--layout-vertical-gap) var(--layout-horizontal-gap); 
+    margin: calc( var(--layout-vertical-gap) /2) calc(var(--layout-horizontal-gap));
+    margin-top: 0;
+    border-radius: var(--layout-corner-raduis);
+    box-shadow: 0px 4px 3px -3px rgba(0, 0, 0, 0.05);
+}
+
+
+.mantine-AppShell-root {
+    margin-top: calc(var(--header-height) + var(--layout-vertical-gap));
+    margin-left: calc(var(--layout-horizontal-gap));
+    margin-right: calc(var(--layout-horizontal-gap));
+    border-radius: 0px var(--layout-corner-raduis) var(--layout-corner-raduis) 0 ;
+    box-shadow: 0px 4px 3px -3px rgba(0, 0, 0, 0.05);
+
+    margin-bottom: 200px;
+}
+
+.header-inner-container{
+    height: calc(var(--header-height) - var(--header-padding) );
+}
+
+
+
+.mantine-AppShell-navbar {
+    margin-top: calc(var(--header-height) + var(--layout-vertical-gap) + var(--frame-border-width));
+    margin-left: calc(var(--layout-horizontal-gap) + var(--frame-border-width) );
+    width: var(--navbar-width);
+    height: calc(100vh - var(--header-height) - var(--layout-vertical-gap) * 2);
+    background-color: var(--aside-bg-color);
+}
+
+.mantine-AppShell-main{
+    margin-left: calc(var(--navbar-width-margin));
+    margin-right: calc( var(--aside-width) + var(--layout-adide-gap) );
+    box-shadow: 0px 4px 3px -3px rgba(0, 0, 0, 0.05);
+    margin-bottom: var(--footer-height) ;
+    height: calc(100vh - var(--header-height) - var(--footer-height) -  var(--layout-vertical-gap) * 2);
+    min-height: calc(100vh - var(--header-height) - var(--footer-height) -  var(--layout-vertical-gap) * 2);
+
+}
+
+.mantine-AppShell-aside{
+    margin-right: calc(var(--layout-adide-gap) );
+    width: var(--aside-width);
+    margin-top: calc(var(--header-height) + var(--layout-vertical-gap) * 2);
+    height: calc(100vh - var(--header-height) - var(--footer-height) - var(--layout-adide-gap)  * 2);
+    overflow: hidden;
+    background-color: var(--aside-bg-color);
+    border-radius: 0px var(--layout-corner-raduis) 0px 0px ;
+}
+
+.mantine-AppShell-footer{
+    height: var(--footer-height);
+    margin-left: calc(var(--navbar-width-margin) + var(--layout-horizontal-gap) + var(--frame-border-width));
+    margin-right:  calc(var(--layout-horizontal-gap) + var(--frame-border-width));
+    margin-bottom: var(--layout-vertical-gap);
+    border-radius: 0px 0px var(--layout-corner-raduis) 0 ;
+    overflow: hidden;
+    background-color: var(--aside-bg-color);
+   
+}
+
+
+@media only screen and (max-width: 1400px) { 
+    :root {
+        --aside-width:0px;
+        --layout-adide-gap:0px; 
+    }
+
+    .mantine-AppShell-main{
+        border-radius: 0px var(--layout-corner-raduis) var(--layout-corner-raduis) 0 ; 
+    }
+  }
+
+
+@media only screen and (max-width: 61.99375em) { 
+    :root {
+        --navbar-width-margin:0px;
+        --logo-image-with:80px;
+        --header-height:40px;
+    }
+    .mantine-AppShell-navbar {
+        margin-left: 0px
+    }
+  }
+ */
