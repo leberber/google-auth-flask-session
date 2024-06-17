@@ -61,7 +61,7 @@ layout = dmc.Center(
                     ),
                     dmc.Divider(label="Or continue with", mb = 10, mt = 10),
                     html.A(
-                        href='/signupgoogle', 
+                        href='/signingoogle', 
                         style = loginWithGoogleStyle,
                         children = [
                             dmc.Button(

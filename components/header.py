@@ -2,7 +2,7 @@
 import dash_mantine_components as dmc
 from utils.helpers import iconify
 
-def header(user):
+def header():
     return dmc.Group(
             justify='space-between',
             className = 'header-inner-container',
@@ -20,19 +20,10 @@ def header(user):
                         dmc.Menu(
                             children = [
                                 dmc.MenuTarget(
-                                    dmc.Indicator(
-                                            dmc.Avatar(
-                                                style = {"cursor": "pointer" },
-                                                size="md",
-                                                radius="xl",
-                                                src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png",
-                                            ),
-                                            offset=3,
-                                            position="bottom-end",
-                                            size=14,
-                                            label = user,
-                                            id = 'indicator'
-                                        )
+                                        dmc.Box(
+                                            id='avatar-indicator',
+                                            children=[]
+                                            )
                                     ),
                                 dmc.MenuDropdown(
                                     [

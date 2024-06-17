@@ -22,8 +22,7 @@ _dash_renderer._set_react_version("18.2.0")
 
 with open('db.json', 'r') as openfile:
     db = json.load(openfile)
-    # print(type(db), db)
-
+ 
 
 server = Flask(__name__)
 server.config.update(SECRET_KEY=os.getenv("SECRET_KEY"))
@@ -32,17 +31,20 @@ app = Dash(
     __name__, server=server, use_pages=True,
     external_stylesheets=stylesheets,
 )
+oauth = OAuth(server)
+google = oauth.register(
+    name='google',
+    client_id=os.getenv("CLIENT_ID"),
+    client_secret=os.getenv("CLIENT_SECRET"),
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    api_base_url='https://www.googleapis.com/oauth2/v3/',
+    client_kwargs={'scope': 'openid profile email'}
+)
 
-def get_user():
-    user=''
-    if 'email' in session:
-        acount = session['email']
-        user = f"{acount['firstname'][:1]}{acount['lastname'][:1]}"
-        print(user)
-    return user
-# with server.app_context():
-#     # get_user()
-#     print('top')
+
+
+
+
 
 app.layout = dmc.MantineProvider(
     id="mantine-provider",
@@ -52,13 +54,14 @@ app.layout = dmc.MantineProvider(
             navbar={ "breakpoint": "md", "collapsed": {"mobile": True}},
             children = [
                 dcc.Location(id="url"),
-                dmc.AppShellHeader(header('TT')),
+                dmc.AppShellHeader(header()),
                 dmc.AppShellNavbar(sidebar, withBorder=True),
                 dmc.AppShellMain(page_container),
             ]
         )
     ]   
 )
+
 @server.route('/login', methods=['POST'])
 def login_button_click():
     if request.form:
@@ -74,34 +77,73 @@ def login_button_click():
 
 @server.route('/register', methods=['POST'])
 def register_button_click():
-
     if request.form:
-
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
+        given_name = request.form['given_name']
+        family_name = request.form['family_name']
         email = request.form['email']
         password = request.form['password']
         user = db.get(email, None)
         if user :
             return f""" user name {user } is taken chose another one and continue <a href='/register'>register here</a> """
         else:
-            db[email]= {"lastname":lastname,  "firstname":firstname, "email": email, "password":password}
-            # db = json.dumps(db, indent=4)
+            db[email]= {"given_name": given_name,  "family_name":family_name, "email": email, "password":password}
             with open("db.json", "w") as outfile: 
                 json.dump(db, outfile, indent=4)
             return redirect('/login')
+        
+# Flask routes for OAuth
+@server.route('/signingoogle')
+def login():
+    google = oauth.create_client('google')
+    redirect_uri = url_for('authorize', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+@server.route('/authorize')
+def authorize():
+    google = oauth.create_client('google')
+    token = google.authorize_access_token()
+    resp = google.get('userinfo')
+    resp.raise_for_status()
+    user_info = resp.json()
+    session['email'] = user_info
+    return redirect('/')
 
 @callback(
-    Output('indicator', 'label'),
+    Output('avatar-indicator', 'children'),
     Input("url", "pathname"),
 )
 def update_user_initials(url):
-    user=''
-    if 'email' in session:
+    user =''
+    image=''
+    size=0
+    if  url =='/logout':
+        user = ""
+        size=0
+    elif 'email' in session:
         acount = session['email']
-        user = f"{acount['firstname'][:1]}{acount['lastname'][:1]}"
-        print(user)
-    return user
+        user = f"{acount.get('given_name', '')[:1]}{acount.get('family_name', '')[:1]}"
+        image = acount.get('picture', '')
+     
+        size=8
+    status = dmc.Indicator(
+            dmc.Avatar(
+                style = {"cursor": "pointer" },
+                size="md",
+                radius="xl",
+                src=image,
+            ),
+            offset=3,
+            position="bottom-end",
+            styles={
+                "indicator": {"height": '20px', "padding": '2px', 'paddingInline':'0px'},
+            },
+            color='dark',
+            size=size,
+            label = user,
+            withBorder=True,
+            id = 'indicator'
+        )
+    return  status
 
 clientside_callback(
     ClientsideFunction(
@@ -129,5 +171,5 @@ clientside_callback(
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True, port= 8052)
+    app.run_server(debug=True, port= 8050)
 

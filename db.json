@@ -10,5 +10,11 @@
         "firstname": "Yazid",
         "email": "yazid.mekhtoub@charter.com",
         "password": "test"
+    },
+    "ymekhtoub90@gmail.com": {
+        "lastname": "Mekhtoub",
+        "firstname": "Yazid",
+        "email": "ymekhtoub90@gmail.com",
+        "password": "test"
     }
 }

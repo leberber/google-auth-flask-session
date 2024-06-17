@@ -32,13 +32,13 @@ layout = dmc.Center(
                     dmc.Text("Please up in to continue", c='gray', size='xs', mb = 10),
                     dmc.TextInput(
                         label="First Name",
-                        name='firstname',
+                        name='given_name',
                         placeholder="Enter your first name",
                         required = True,
                     ),
                     dmc.TextInput(
                         label="Last Name",
-                        name='lastname',
+                        name='family_name',
                         placeholder="Enter your last name",
                         required = True,
                     ),
