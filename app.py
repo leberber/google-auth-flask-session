@@ -31,7 +31,11 @@ app = Dash(
     __name__, server=server, use_pages=True,
     external_stylesheets=stylesheets,
 )
+
+server = app.server
+
 oauth = OAuth(server)
+
 google = oauth.register(
     name='google',
     client_id=os.getenv("CLIENT_ID"),
@@ -40,11 +44,6 @@ google = oauth.register(
     api_base_url='https://www.googleapis.com/oauth2/v3/',
     client_kwargs={'scope': 'openid profile email'}
 )
-
-
-
-server = app.server
-
 
 app.layout = dmc.MantineProvider(
     id="mantine-provider",
@@ -69,7 +68,6 @@ def login_button_click():
         password = request.form['password']
         user = db.get(email)
         if user and user['password'] == password:
-            print('yes')
             session['email'] = user
             return redirect('/secret')
         else:
@@ -167,8 +165,6 @@ clientside_callback(
     State("app-shell", "navbar"),
 
 )
-
-
 
 if __name__ == "__main__":
     app.run_server(debug=True, port= 8050)
