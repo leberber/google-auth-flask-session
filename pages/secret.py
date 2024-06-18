@@ -6,7 +6,7 @@ from dash import (
 from flask import session
 import json
 import dash_mantine_components as dmc
-from flask_login import current_user
+
 
 register_page(__name__)
 
