@@ -43,7 +43,7 @@ google = oauth.register(
 
 
 
-
+server = app.server
 
 
 app.layout = dmc.MantineProvider(
